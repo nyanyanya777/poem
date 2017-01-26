@@ -19,6 +19,7 @@ class PoemsController < ApplicationController
 
   # GET /poems/1/edit
   def edit
+    set_poem
   end
 
   # POST /poems
@@ -41,6 +42,7 @@ class PoemsController < ApplicationController
   # PATCH/PUT /poems/1.json
   def update
     respond_to do |format|
+      set_poem
       if @poem.update(poem_params)
         format.html { redirect_to @poem, notice: 'Poem was successfully updated.' }
         format.json { render :show, status: :ok, location: @poem }
@@ -56,7 +58,7 @@ class PoemsController < ApplicationController
   def destroy
     @poem.destroy
     respond_to do |format|
-      format.html { redirect_to poems_url, notice: 'Poem was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Poem was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +71,6 @@ class PoemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poem_params
-      params.require(:poem).permit(:content, :auther)
+      params.require(:poem).permit(:content, :auther, :title)
     end
 end
